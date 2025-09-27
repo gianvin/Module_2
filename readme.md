@@ -4,7 +4,7 @@ In this project I created a database project using cloud database. I created the
 
 The purpose of this project is to have a list and track things to do for the week.
 
-[Software Demo Video](http://youtube.link.goes.here)
+[Cloud Databases Mosule 2](https://youtu.be/8qXJLsqrGMY)
 
 # Cloud Database
 
@@ -12,11 +12,11 @@ The Cloud Database is an app to list and track the things to do in a week.
 
 # Development Environment
 
-Ptython - for writing the function fo the todoApp
+Python - for writing the function fo the todoApp
 VSCode - for writing python code, running scripts and Git integration
 Git/Github - for tracking of changes in the code and pushing the project in Github
 .gitignore - to prevent sensitive files the service accountkey of the project
-Clod Database - Firebase Firestore for the storage to do-tasks or collection, real-time updates via listeners on snapshots
+Cloud Database - Firebase Firestore for the storage to do-tasks or collection, real-time updates via listeners on snapshots
 Firebase Admin SDK - firebase_admin Python Package, support time using import time
 Powershell - to write git command directly into my computer due to some errors I encountered because pushing the security key in github
 
