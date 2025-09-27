@@ -9,6 +9,7 @@ from firebase_admin import credentials, firestore
 
 # print("/ Firebase connected successfully")
 
+##Demonstration of the ability to add and retrieve data
 # #Code for adding the tasks
 # def add_tasks(date, thing_to_do, due, priority, category, remarks):
 #     task_ref = db.collection("tasks").add({
