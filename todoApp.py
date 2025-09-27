@@ -1,6 +1,6 @@
 import firebase_admin
 from firebase_admin import credentials, firestore
-
+import time
 #Code for loading todoApp
 cred = credentials.Certificate ("todoApp.json")
 
@@ -119,3 +119,24 @@ def get_school_tasks():
 if __name__ == "__main__":
     get_high_priority_tasks()
     get_school_tasks()
+# function to receive notification when data on the cloud base changes
+def on_snapshot(col_snapshot, changes, read_time):
+    print("\ Firestore update detected!")
+    for change in changes:
+        if change.type.name == 'ADDED':
+            print(f"+ New tasks added: {change.document.to_dict()}")
+        elif change.type.name == 'MODIFIED':
+            print(f" Task modified: {change.document.to_dict()}")
+        elif change.type.name == 'REMOVED':
+            print(f"X Task removed: {change.document.to_dict()}")
+# Function Attach Listener
+tasks_ref = db.collection("tasks")
+query_watch = tasks_ref.on_snapshot(on_snapshot)
+
+# Function to keep script running
+print("Listening for changes...Press ctrl+C to exit.")
+try:
+    while True:
+        time.sleep(1)
+except KeyboardInterrupt:
+    print("\nStopped listening.")
