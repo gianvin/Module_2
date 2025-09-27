@@ -20,6 +20,17 @@ def add_tasks(date, thing_to_do, due, priority, category, remarks):
         "remarks": remarks    
         })
     print("/ Tasks added successfully!")
+# Function to list tasks
+def list_tasks():
+    try:
+        tasks_ref = db.collection("tasks").stream()
+        print("Current To-Do Tasks:")
+        for task in tasks_ref:
+            task_data = task.to_dict()
+            print(f" -{task_data['date']} | {task_data['thing_to_do']} | Due: {task_data['due']} | "
+              f"Priority: {task_data['priority']} | Category: {task_data['category']} | Remarks: {task_data['remarks']}")
+    except Exception as e:
+        print("x Error listing tasks:", e)
 #Call the Function for adding tasks
 if __name__ == "__main__":
     add_tasks(
@@ -30,11 +41,81 @@ if __name__ == "__main__":
         category="School",
         remarks="Done"
     )
+    add_tasks(
+        date="2025-09-27",
+        thing_to_do="Record Video of my project",
+        due="2025-09-28",
+        priority="High",
+        category="School",
+        remarks="Will do"
+    )
+
+    add_tasks(
+        date="2025-09-27",
+        thing_to_do="Prepare documents for reimbursement of transportation expenses for the seminar attended",
+        due="2025-10-03",
+        priority="Least",
+        category="Work",
+        remarks="To do on Tuesday"
+    )
+
+    add_tasks(
+        date="2025-09-27",
+        thing_to_do="Encash Checks for Feeding Program sponsored by partner company",
+        due="2025-09-30",
+        priority="Medium",
+        category="Work",
+        remarks="To do on Tuesday"
+    )
+    add_tasks(
+        date="2025-09-27",
+        thing_to_do="Prepare lesson for Education for Better Work Class",
+        due="2025-09-28",
+        priority="High",
+        category="Church",
+        remarks="Done"
+    )
+    # List all tasks
+    list_tasks()
+       
 # Code for reading tasks
-def get_tasks():
-    tasks = db.collection("tasks").stream()
-    print("\n To-Do List")
-    for task in tasks:
-        data = task.to_dict()
-        print(f" -{data['date']} | {data['thing_to_do']} | Due: {data['due']} | "
-              f"Priority: {data['priority']} | Category: {data['category']} | Reamrks: {data['remarks']}")
+def read_tasks():
+    try:
+        tasks = db.collection("tasks").stream()
+        print("To-Do Tasks")
+        for t in tasks:
+            task = t.to_dict()
+            print(f" -{task['date']} | {task['thing_to_do']} | Due: {task['due']} | "
+              f"Priority: {task['priority']} | Category: {task['category']} | Remarks: {task['remarks']}")
+    except Exception as e:
+        print("X Error reading tasks:", e)
+
+if __name__ == "__main__":
+    read_tasks()
+
+# Function to get specific tasks
+def get_high_priority_tasks():
+    try:
+        tasks = db.collection("tasks").where("priority", "==", "High").stream()
+        print("\n High Priority Tasks:")
+        for task in tasks:
+            data = task.to_dict()
+            print(f" -{data['date']} | {data['thing_to_do']} | Due: {data['due']} | "
+              f"Priority: {data['priority']} | Category: {data['category']} | Remarks: {data['remarks']}")
+    except Exception as e:
+        print("X Error reading  high priority tasks:", e) 
+# function to take work tasks
+def get_school_tasks():
+    try:
+        tasks = db.collection("tasks").where("category", "==", "School").stream()
+        print("\n School Tasks:")
+        for task in tasks:
+            data_task = task.to_dict()
+            print(f" -{data_task['date']} | {data_task['thing_to_do']} | Due: {data_task['due']} | "
+              f"Priority: {data_task['priority']} | Category: {data_task['category']} | Remarks: {data_task['remarks']}")
+    except Exception as e:
+        print("X Error reading  school tasks:", e) 
+#call Function  
+if __name__ == "__main__":
+    get_high_priority_tasks()
+    get_school_tasks()
